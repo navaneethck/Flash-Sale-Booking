@@ -1,5 +1,6 @@
 import express from "express";
 import eventRoutes from "./routes/event.routes.js";
+import bookingRoutes from "./routes/booking.routes.js";
 
 const app = express();
 
@@ -13,5 +14,6 @@ app.get("/health", (_req, res) => {
 });
 
 app.use("/api/events", eventRoutes);
+app.use("/api", bookingRoutes);
 
 export default app;
