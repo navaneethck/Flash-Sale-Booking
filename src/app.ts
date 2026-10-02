@@ -2,6 +2,7 @@ import express from "express";
 import eventRoutes from "./routes/event.routes.js";
 import bookingRoutes from "./routes/booking.routes.js";
 
+
 const app = express();
 
 app.use(express.json());

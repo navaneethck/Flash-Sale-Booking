@@ -1,8 +1,17 @@
 import pool from "../config/database.js";
 import type { RowDataPacket } from "mysql2";
 import type { ResultSetHeader } from "mysql2";
+import redisClient from "../config/redis.js";
 
-export async function findEventById(id: number) {
+
+export async function findEventById(eventId: number) {
+  const cacheKey=`event:&{eventId}`;
+  const cachedEvent=await redisClient.get(cacheKey);
+    if (cachedEvent) {
+    console.log("CACHE HIT");
+    return JSON.parse(cachedEvent);
+  }
+  console.log("cache miss")
   const [record] = await pool.execute<RowDataPacket[]>(
     `
       SELECT
@@ -17,9 +26,15 @@ export async function findEventById(id: number) {
       FROM events
       WHERE id = ?
     `,
-    [id]
+    [eventId]
   );
-
+await redisClient.set(
+  cacheKey,
+  JSON.stringify(record),
+  {
+    EX:60
+  }
+)
   return record;
 }
 

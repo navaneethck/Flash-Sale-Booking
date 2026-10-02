@@ -1,5 +1,6 @@
 import app from "./app.js";
 import pool from "./config/database.js";
+import redisClient from "./config/redis.js";
 
 const PORT = 3000;
 
@@ -9,6 +10,9 @@ try{
      try {
       await connection.query("SELECT 1");
       console.log("MySQL connected successfully");
+         await redisClient.connect();
+           console.log("Redis connected successfully");
+           await redisClient.set("test:key", "hello redis");
     } finally {
       connection.release();
     }
