@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import { createBookingService } from "../services/booking.service.js";
 
+
 export async function createBooking(req: Request, res: Response) {
   try {
     const eventId = Number(req.params.id);

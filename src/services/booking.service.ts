@@ -1,5 +1,6 @@
 import pool from "../config/database.js";
 import type {  ResultSetHeader } from "mysql2";
+import redisClient from "../config/redis.js";
 
 export async function createBookingService(
   eventId: number,
@@ -42,5 +43,7 @@ export async function createBookingService(
     quantity,
     status: "CONFIRMED"
   };
+
+  await redisClient.del(`event:${eventId}`);
 }
 
