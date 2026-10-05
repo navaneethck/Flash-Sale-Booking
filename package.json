@@ -13,12 +13,14 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "amqplib": "^2.2.0",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "mysql2": "^3.24.4",
     "redis": "^6.3.0"
   },
   "devDependencies": {
+    "@types/amqplib": "^0.10.8",
     "@types/express": "^5.0.6",
     "@types/node": "^22.20.2",
     "tsx": "^4.23.13",
