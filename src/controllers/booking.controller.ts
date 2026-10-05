@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import { createBookingService } from "../services/booking.service.js";
-
+import { publishBooking } from "../services/bookingProducer.service.js";
 
 export async function createBooking(req: Request, res: Response) {
   try {
@@ -29,13 +29,17 @@ export async function createBooking(req: Request, res: Response) {
       });
     }
 
-    const booking = await createBookingService(
-      eventId,
-      customerId,
-      quantity
-    );
+    // const booking = await createBookingService(
+    //   eventId,
+    //   customerId,
+    //   quantity
+    // );
 
-    return res.status(201).json(booking);
+    publishBooking(eventId, customerId, quantity);
+
+    return res.status(202).json({
+      message:"Booking Request Accepted"
+    });
 
   } catch (error) {
     if (error instanceof Error) {
