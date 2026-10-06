@@ -2,6 +2,7 @@ import app from "./app.js";
 import pool from "./config/database.js";
 import redisClient from "./config/redis.js";
 import { connectRabbitMQ } from "./config/rabbitMQ.js";
+import { startBookingWorker } from "./workers/booking.worker.js";
 
 const PORT = 3000;
 
@@ -15,6 +16,7 @@ try{
            console.log("Redis connected successfully");
            await redisClient.set("test:key", "hello redis");
            await connectRabbitMQ();
+           await startBookingWorker();
     } finally {
       connection.release();
     }
