@@ -5,6 +5,7 @@ export const options = {
   vus: 1000,
   iterations: 1000
 };
+const BASE_URL = __ENV.BASE_URL || "http://localhost:3000";
 
 export default function () {
   const eventId = 4;
@@ -19,12 +20,12 @@ export default function () {
       "Content-Type": "application/json"
     }
   };
-
-  const response = http.post(
-    `http://localhost:3000/api/events/${eventId}/book`,
+ const response = http.post(
+    `${BASE_URL}/api/events/${eventId}/book`,
     payload,
     params
   );
+
 console.log(`VU ${__VU} → status: ${response.status}`);
   check(response, {
     "request completed": (r) =>

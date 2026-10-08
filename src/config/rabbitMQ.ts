@@ -1,6 +1,7 @@
 import amqp from "amqplib";
+import "dotenv/config";
 
-const RABBITMQ_URL = "amqp://localhost:5672";
+const RABBITMQ_URL = process.env.RABBITMQ_URL!;
 
 let connection: amqp.ChannelModel;
 let channel: amqp.Channel;

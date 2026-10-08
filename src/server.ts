@@ -4,7 +4,7 @@ import redisClient from "./config/redis.js";
 import { connectRabbitMQ } from "./config/rabbitMQ.js";
 import { startBookingWorker } from "./workers/booking.worker.js";
 
-const PORT = 3000;
+const PORT = Number(process.env.PORT)||3000
 
 async function startserver (){
 try{
@@ -20,8 +20,8 @@ try{
     } finally {
       connection.release();
     }
-       app.listen(PORT, () => {
-      console.log(`Server running on http://localhost:${PORT}`);
+       app.listen(PORT, "0.0.0.0",() => {
+      console.log(`Server running on port ${PORT}`);
     });
 }catch (error) {
     console.error("Unable to connect to MySQL:", error);
