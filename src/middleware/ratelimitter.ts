@@ -1,5 +1,5 @@
 import type { Request,Response,NextFunction } from "express";
-import redisClient from "../src/config/redis.js";
+import redisClient from "../config/redis.js";
 
 const windowSeconds = 60;
 const maxReq = 10;
